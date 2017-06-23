@@ -33,7 +33,7 @@ module.exports = {
     }),
     new webpack.HotModuleReplacementPlugin()
   ],
-  devtool: 'cheap-eval-source-map',
+  devtool: 'source-map',
   devServer: {
     hot: true,
     contentBase: path.resolve(__dirname, 'dist'),
