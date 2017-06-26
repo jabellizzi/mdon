@@ -21,19 +21,25 @@ module.exports = {
         options: {
           presets: ['env']
         }
+      }, {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
       }
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      title: 'mdon'
-    }),
+    // new HtmlWebpackPlugin({
+    //   title: 'mdon'
+    // }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor'
     }),
     new webpack.HotModuleReplacementPlugin()
   ],
-  devtool: 'source-map',
+  devtool: 'cheap-module-eval-source-map',
   devServer: {
     hot: true,
     contentBase: path.resolve(__dirname, 'dist'),
