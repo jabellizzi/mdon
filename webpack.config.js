@@ -4,7 +4,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
-    app: './src/mdon.js'
+    app: './src/index.js'
   },
   output: {
     filename: '[name].bundle.js',
@@ -34,22 +34,22 @@ module.exports = {
       // }
     ]
   },
-  // plugins: [
-  //   // new HtmlWebpackPlugin({
-  //   //   title: 'mdon'
-  //   // }),
-  //   // new webpack.optimize.CommonsChunkPlugin({
-  //   //   name: 'vendor'
-  //   // }),
-  //   new webpack.HotModuleReplacementPlugin()
-  // ],
-  // devtool: 'cheap-module-eval-source-map',
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'mdon'
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor'
+    }),
+    // new webpack.HotModuleReplacementPlugin()
+  ],
+  devtool: 'cheap-module-eval-source-map',
   // devServer: {
-  //   hot: true,
-  //   contentBase: path.resolve(__dirname, 'dist'),
-  //   publicPath: '/'
+  //   // hot: true,
+  //   // contentBase: path.resolve(__dirname, 'dist'),
+  //   // publicPath: '/'
   // },
-  target: 'node'
+  // target: 'node'
   // node: {
   //   fs: 'empty'
   // }

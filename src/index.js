@@ -10,40 +10,40 @@ import generateHTML from './lib/generateHTML.js';
 
 var md = new MarkdownIt();
 
-// Get div panes
-// Get Body
-var body = document.querySelector('body');
+// // Get div panes
+// // Get Body
+// var body = document.querySelector('body');
 
-// Create left pane
-var leftPane = document.createElement('div');
-leftPane.setAttribute('id', 'left-pane');
-// Create left textarea
-var leftInput = document.createElement('textarea');
-leftInput.classList.add('left-text-input');
-leftInput.innerHTML = chapter1;
-leftPane.appendChild(leftInput);
+// // Create left pane
+// var leftPane = document.createElement('div');
+// leftPane.setAttribute('id', 'left-pane');
+// // Create left textarea
+// var leftInput = document.createElement('textarea');
+// leftInput.classList.add('left-text-input');
+// leftInput.innerHTML = chapter1;
+// leftPane.appendChild(leftInput);
 
-// // Create middle pane
-// var middlePane = document.createElement('div');
-// middlePane.setAttribute('id', 'middle-pane');
-// // Create middle textarea
-// var middleInput = document.createElement('textarea');
-// middleInput.classList.add('middle-text-input');
-// middlePane.appendChild(middleInput);
+// // // Create middle pane
+// // var middlePane = document.createElement('div');
+// // middlePane.setAttribute('id', 'middle-pane');
+// // // Create middle textarea
+// // var middleInput = document.createElement('textarea');
+// // middleInput.classList.add('middle-text-input');
+// // middlePane.appendChild(middleInput);
 
-// Create right output pane
-var rightPane = document.createElement('div');
-rightPane.setAttribute('id', 'right-pane');
+// // Create right output pane
+// var rightPane = document.createElement('div');
+// rightPane.setAttribute('id', 'right-pane');
 
-// Append panes to body
-body.appendChild(leftPane);
-// body.appendChild(middlePane);
-body.appendChild(rightPane);
+// // Append panes to body
+// body.appendChild(leftPane);
+// // body.appendChild(middlePane);
+// body.appendChild(rightPane);
 
-leftInput.addEventListener('input', function(){
-  var updatedMarkdown = leftInput.value;
-  outputMarkdown(updatedMarkdown);
-})
+// leftInput.addEventListener('input', function(){
+//   var updatedMarkdown = leftInput.value;
+//   outputMarkdown(updatedMarkdown);
+// })
 
 outputMarkdown(chapter1);
 
@@ -65,11 +65,13 @@ function outputMarkdown(inputMarkdown){
 
   /* Nest all content into tags that contain them */
   var nestedData = nestData(parse);
+  console.log(nestedData);
 
   /* Nest data using special rules where <h1> represents the
       start of a chapter and <h2> represents a section within
       a chapter */
   var book = createBook(nestedData);
+  console.log(book);
 
 
   // =============== Class Definition ===============
@@ -121,6 +123,6 @@ function outputMarkdown(inputMarkdown){
     })
   })
 
-  rightPane.innerHTML = html;
+  // rightPane.innerText = html;
 }
 
