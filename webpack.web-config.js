@@ -4,17 +4,12 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
-    app: './src/web/index.js'
+    index: './src/web/index.js'
   },
   output: {
-    filename: '[name].bundle.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'dist')
   },
-  // output: {
-  //   filename: '[name].bundle.js',
-  //   path: path.resolve(__dirname, 'dist'),
-  //   publicPath: '/'
-  // },
   module: {
     rules: [
       {
@@ -40,17 +35,7 @@ module.exports = {
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor'
-    }),
-    // new webpack.HotModuleReplacementPlugin()
+    })
   ],
-  devtool: 'cheap-module-eval-source-map',
-  // devServer: {
-  //   // hot: true,
-  //   // contentBase: path.resolve(__dirname, 'dist'),
-  //   // publicPath: '/'
-  // },
-  // target: 'node'
-  // node: {
-  //   fs: 'empty'
-  // }
+  devtool: 'cheap-module-eval-source-map'
 }

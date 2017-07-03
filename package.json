@@ -4,10 +4,11 @@
   "description": "Markdown to json converter",
   "main": "index.js",
   "scripts": {
-    "serve": "webpack-dev-server --open",
-    "build": "webpack",
-    "watch": "webpack --watch",
-    "start": "npm run watch & npm run serve"
+    "build-node": "webpack --config webpack.mdon-config.js",
+    "build-web": "webpack --config webpack.web-config.js",
+    "watch-web": "webpack --config webpack.web-config.js --watch",
+    "serve": "webpack-dev-server --config webpack.web-config.js --open",
+    "start": "npm run watch-web & npm run serve"
   },
   "repository": {
     "type": "git",
