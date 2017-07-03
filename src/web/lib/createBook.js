@@ -28,7 +28,7 @@ export default function createBook(nestedData){
         will be stored in the content array */
     else if(nestedData[0].tag === 'img'){
       book[bookIndex].sections.push({
-        section: book[bookIndex].sections.length + 1,
+        section: book[bookIndex].sections.length,
         img: [nestedData.shift()],
         content: []
       });
@@ -47,7 +47,7 @@ export default function createBook(nestedData){
 
         if(nestedData[0].tag != 'img'){
           book[bookIndex].sections.push({
-            section: book[bookIndex].sections.length + 1,
+            section: book[bookIndex].sections.length,
             content: [nestedData.shift()]
           })
         }
@@ -58,7 +58,7 @@ export default function createBook(nestedData){
         we have an h2 that doesn't have an image associated with it */
     else if(nestedData[0].tag === 'h2'){
       book[bookIndex].sections.push({
-        section: book[bookIndex].sections.length + 1,
+        section: book[bookIndex].sections.length,
         content: [nestedData.shift()]
       })
     }
