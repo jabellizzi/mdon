@@ -31,6 +31,9 @@ function adjustTagNesting(inputArray){
 
       element.children.forEach((child) =>{
         if(child.type === 'image'){
+          inputArray[elementIndex - 1] = child;
+          var removedItem = inputArray.splice(elementIndex, 1)
+
           child.nesting = 1;
           child.attrs[1][1] = child.content;
         }
