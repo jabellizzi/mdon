@@ -33,23 +33,25 @@ export default function createBook(nestedData){
         content: []
       });
 
-      /* Normally, an h2 tag will create a new section in the chapter. If an h2 tag
-          immediately follows an img tag, we want to shift it out of the array and
-          place it within the content of the image we just pulled */
-      if(nestedData[0].tag === 'h2'){
-        book[bookIndex].sections[book[bookIndex].sections.length - 1].content.push(nestedData.shift())
-      }
+      if(nestedData[0]){
+        /* Normally, an h2 tag will create a new section in the chapter. If an h2 tag
+            immediately follows an img tag, we want to shift it out of the array and
+            place it within the content of the image we just pulled */
+        if(nestedData[0].tag === 'h2'){
+          book[bookIndex].sections[book[bookIndex].sections.length - 1].content.push(nestedData.shift())
+        }
 
-      /* If we have an ol with associated img, the following tag should always start
-          a new section */
-      if(nestedData[0].tag === 'ol'){
-        book[bookIndex].sections[book[bookIndex].sections.length - 1].content.push(nestedData.shift());
+        /* If we have an ol with associated img, the following tag should always start
+            a new section */
+        if(nestedData[0].tag === 'ol'){
+          book[bookIndex].sections[book[bookIndex].sections.length - 1].content.push(nestedData.shift());
 
-        if(nestedData[0].tag != 'img'){
-          book[bookIndex].sections.push({
-            section: book[bookIndex].sections.length,
-            content: [nestedData.shift()]
-          })
+          if(nestedData[0].tag != 'img'){
+            book[bookIndex].sections.push({
+              section: book[bookIndex].sections.length,
+              content: [nestedData.shift()]
+            })
+          }
         }
       }
     }

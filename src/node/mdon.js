@@ -1,26 +1,36 @@
-if(process.argv.length < 3){
-  // console.log('input file source to convert');
-  // process.exit(1);
-  var filename = 'dist-mdon/markdown-input/101. What Are Extensions.md'
-} else var filename = process.argv[2];
-
 var fs = require('fs'),
-    fileHeaderOutput = 'dist-mdon/html-output/chapter1-header.ejs',
-    fileBodyOutput = 'dist-mdon/html-output/chapter1-body.ejs';
+    path = require('path');
 
 import compileMarkdown from '../compile/compile.js';
 
+fs.readFile('./path.json', 'utf8', (err, directories) =>{
+  var directoryObj = JSON.parse(directories);
+  
+  var markdownPath = directoryObj.input,
+      htmlOutputDir = directoryObj.output;
 
-fs.readFile(filename, 'utf8', function(err, markdownData){
-  if(err) throw err;
+  if(!fs.existsSync(htmlOutputDir)) fs.mkdirSync(htmlOutputDir);
 
-  var html = compileMarkdown(markdownData);
-
-  // =============== Output ===============
-  fs.writeFile(fileHeaderOutput, html.header, function(err){
+  fs.readdir(markdownPath, function(err, files){
     if(err) throw err;
-  });
-  fs.writeFile(fileBodyOutput, html.body, function(err){
-    if(err) throw err;
-  });
+
+    files.forEach((file) =>{
+      if(path.extname(file) === '.md'){
+        fs.readFile(markdownPath +'/' +file, 'utf8', (err, markdownData) =>{
+          if(err) throw err;
+          var filename = file.split('.md')[0];
+          if(!fs.existsSync(htmlOutputDir +'/' +filename)) fs.mkdirSync(htmlOutputDir +'/' +filename);
+
+          var html = compileMarkdown(markdownData);
+          
+          fs.writeFile(htmlOutputDir +'/' +filename +'/' +filename +'-header.ejs', html.header, (err) =>{
+            if(err) throw err;
+          });
+          fs.writeFile(htmlOutputDir +'/' +filename +'/' +filename +'-body.ejs', html.body, (err) =>{
+            if(err) throw err;
+          })
+        })
+      }
+    })
+  })
 })

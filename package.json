@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build-node": "webpack --config webpack.mdon-config.js",
+    "watch-node": "webpack --config webpack.mdon-config.js --watch",
     "build-web": "webpack --config webpack.web-config.js",
     "watch-web": "webpack --config webpack.web-config.js --watch",
     "serve": "webpack-dev-server --config webpack.web-config.js --open",

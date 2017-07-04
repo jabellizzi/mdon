@@ -1,8 +1,5 @@
 /node_modules
-/dist/app.bundle.js
-/dist/vendor.bundle.js
-/dist/101. What are Extensions
 /markdown-input
 /html-output
-/src/markdown-input
-dist-mdon/
+/src/web/markdown-input
+mdon

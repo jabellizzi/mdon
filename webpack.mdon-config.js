@@ -8,7 +8,7 @@ module.exports = {
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'dist-mdon')
+    path: path.resolve(__dirname, 'mdon')
   },
   module: {
     rules: [

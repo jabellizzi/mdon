@@ -8,7 +8,7 @@ module.exports = {
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist-web')
   },
   module: {
     rules: [
@@ -33,9 +33,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'mdon'
     }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor'
-    })
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'vendor'
+    // })
   ],
   devtool: 'cheap-module-eval-source-map'
 }

@@ -1,4 +1,4 @@
-import chapter1 from './markdown-input/chapter1.js';
+import chapter from './markdown-input/chapter0.js';
 import compileMarkdown from '../compile/compile.js';
 
 import './style.css';
@@ -13,7 +13,7 @@ leftPane.setAttribute('id', 'left-pane');
 // Create left textarea
 var leftInput = document.createElement('textarea');
 leftInput.classList.add('left-text-input');
-leftInput.innerHTML = chapter1;
+leftInput.innerHTML = chapter;
 leftPane.appendChild(leftInput);
 
 // Create right output pane
@@ -32,7 +32,7 @@ leftInput.addEventListener('input', function(){
   outputMarkdown(updatedMarkdown);
 })
 
-var html = compileMarkdown(chapter1);
+var html = compileMarkdown(chapter);
 
 rightInput.innerText = html.header + html.body;
 rightPane.appendChild(rightInput);

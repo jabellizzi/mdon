@@ -39,6 +39,20 @@ function adjustTagNesting(inputArray){
         }
       })
     };
+
+    if(element.tag === 'h2' && element.nesting === 1){
+      var h2Array = inputArray[elementIndex + 1].content.split(' ');
+      var name = '';
+      h2Array.forEach(function(word, i){
+        if(i) name += '-';
+        name += word.replace(/[^a-zA-Z]/g, '');
+      })
+
+      var attribute = ['name', name]
+      if(element.attrs){
+        element.attrs.push(attribute);
+      } else element.attrs = [attribute];
+    }
   })
 
   return inputArray;

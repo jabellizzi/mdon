@@ -10,6 +10,11 @@ import generateHTML from '../lib/generateHTML.js';
 var md = new MarkdownIt();
 
 export default function compileMarkdown(inputMarkdown){
+  // =============== Testing ===============
+  var parse2 = md.parse(inputMarkdown);
+  adjustTagNesting(parse2);
+  var nestedData2 = nestData(parse2);
+
   // =============== Markdown-It ===============
   // Parse input markdown using markdown-it
   var parse = md.parse(inputMarkdown);
@@ -42,7 +47,6 @@ export default function compileMarkdown(inputMarkdown){
     })
   })
 
-
   // =============== HTML ===============
   /* Convert json structure to HTML */
   var headerHtml = '',
@@ -52,8 +56,10 @@ export default function compileMarkdown(inputMarkdown){
     chapter.sections.forEach((section) =>{
       bodyHtml += `<div id="section-${section.section}"`
       bodyHtml += 'class="section'
-      if(section.img && section.content[0].tag === 'ol'){
-        bodyHtml += ' section-list">';
+      if(section.content.length > 0){
+        if(section.img && section.content[0].tag === 'ol'){
+          bodyHtml += ' section-list">';
+        } else bodyHtml += '">';
       } else bodyHtml += '">';
       bodyHtml += `<div class="row">
             <div class="col-sm-6 col-md-6 col-lg-6 body-left">
