@@ -10,42 +10,27 @@ var md = new MarkdownIt();
 
 export default function compileMarkdown(inputMarkdown){
   // =============== Testing ===============
-  var parse2 = md.parse(inputMarkdown);
-  dataPrep(parse2);
-  var nestedData2 = nestData(parse2);
+  // var parse2 = md.parse(inputMarkdown);
+  // dataPrep(parse2);
+  // var nestedData2 = nestData(parse2);
 
   // =============== Markdown-It ===============
   // Parse input markdown using markdown-it
   var parse = md.parse(inputMarkdown);
-
     
   // =============== Data Conversion ===============
   /* Find opening tags that have same nesting value as inline 
       and update */
-  dataPrep(parse);
+  var preppedData = dataPrep(parse);
+  
 
   /* Nest all content into tags that contain them */
-  var nestedData = nestData(parse);
+  var nestedData = nestData(preppedData);
 
   /* Nest data using special rules where <h1> represents the
       start of a chapter and <h2> represents a section within
       a chapter */
   var chapter = createChapter(nestedData);
-
-
-  // =============== Class ===============
-  var classList = [{
-    tag: 'img',
-    className: 'img-responsive'
-  }, {
-    tag: 'div',
-    className: 'graph'
-  }]
-
-  chapter.sections.forEach((section) =>{
-    applyClass(section.content, classList);
-    applyClass(section.graph, classList);
-  })
 
 
   // =============== HTML ===============
