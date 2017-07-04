@@ -1,5 +1,5 @@
 // Data Cleanse
-function adjustTagNesting(inputArray){
+export default function dataPrep(inputArray){
   /* ==============================================================================================
 
     The structure of tags generally looks like this:
@@ -28,17 +28,20 @@ function adjustTagNesting(inputArray){
           }
         })
       };
-
-      element.children.forEach((child) =>{
-        if(child.type === 'image'){
-          inputArray[elementIndex - 1] = child;
-          var removedItem = inputArray.splice(elementIndex, 1)
-
-          child.nesting = 1;
-          child.attrs[1][1] = child.content;
-        }
-      })
     };
+
+    if(element.content.includes('<div class="graph">')){
+      element.type = 'div_open';
+      element.tag = 'div';
+      element.classList = [];
+      element.level = inputArray[elementIndex - 1].level;
+      if(element.children.length > 1){
+        element.children[1].content = [{content: ''}];
+        element.content = [element.children[1]];
+      } else element.content = [{content: ''}];
+
+      inputArray.splice(elementIndex - 1, 1);
+    }
 
     if(element.tag === 'h2' && element.nesting === 1){
       var h2Array = inputArray[elementIndex + 1].content.split(' ');
@@ -57,5 +60,3 @@ function adjustTagNesting(inputArray){
 
   return inputArray;
 }
-
-export {adjustTagNesting};

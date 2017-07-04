@@ -1,10 +1,9 @@
 import MarkdownIt from 'markdown-it';
 
-import {adjustTagNesting} from '../lib/dataPrep.js';
+import dataPrep from '../lib/dataPrep.js';
 import nestData from '../lib/nestData.js';
-import createBook from '../lib/createBook.js';
+import createChapter from '../lib/createChapter.js';
 import applyClass from '../lib/applyClass.js';
-import applyStyle from '../lib/applyStyle.js';
 import generateHTML from '../lib/generateHTML.js';
 
 var md = new MarkdownIt();
@@ -12,7 +11,7 @@ var md = new MarkdownIt();
 export default function compileMarkdown(inputMarkdown){
   // =============== Testing ===============
   var parse2 = md.parse(inputMarkdown);
-  adjustTagNesting(parse2);
+  dataPrep(parse2);
   var nestedData2 = nestData(parse2);
 
   // =============== Markdown-It ===============
@@ -23,8 +22,7 @@ export default function compileMarkdown(inputMarkdown){
   // =============== Data Conversion ===============
   /* Find opening tags that have same nesting value as inline 
       and update */
-  adjustTagNesting(parse);
-
+  dataPrep(parse);
 
   /* Nest all content into tags that contain them */
   var nestedData = nestData(parse);
@@ -32,49 +30,51 @@ export default function compileMarkdown(inputMarkdown){
   /* Nest data using special rules where <h1> represents the
       start of a chapter and <h2> represents a section within
       a chapter */
-  var book = createBook(nestedData);
+  var chapter = createChapter(nestedData);
 
 
   // =============== Class ===============
   var classList = [{
     tag: 'img',
     className: 'img-responsive'
+  }, {
+    tag: 'div',
+    className: 'graph'
   }]
 
-  book.forEach((chapter) =>{ 
-    chapter.sections.forEach((section) =>{
-      applyClass(section.img, classList);
-    })
+  chapter.sections.forEach((section) =>{
+    applyClass(section.content, classList);
+    applyClass(section.graph, classList);
   })
+
 
   // =============== HTML ===============
   /* Convert json structure to HTML */
   var headerHtml = '',
       bodyHtml = '';
-  book.forEach((chapter) =>{
-    headerHtml += generateHTML(chapter.header);
-    chapter.sections.forEach((section) =>{
-      bodyHtml += `<div id="section-${section.section}"`
-      bodyHtml += 'class="section'
-      if(section.content.length > 0){
-        if(section.img && section.content[0].tag === 'ol'){
-          bodyHtml += ' section-list">';
-        } else bodyHtml += '">';
-      } else bodyHtml += '">';
-      bodyHtml += `<div class="row">
-            <div class="col-sm-6 col-md-6 col-lg-6 body-left">
-      `;
-      bodyHtml += generateHTML(section.content);
+      
+  headerHtml += generateHTML(chapter.header);
+  chapter.sections.forEach((section) =>{
+    bodyHtml += `<div id="section-${section.section}"`
+    bodyHtml += 'class="section">'
+    // if(section.content.length > 0){
+    //   if(section.img && section.content[0].tag === 'ol'){
+    //     bodyHtml += ' section-list">';
+    //   } else bodyHtml += '">';
+    // } else bodyHtml += '">';
+    bodyHtml += `<div class="row">
+          <div class="col-sm-6 col-md-6 col-lg-6 body-left">
+    `;
+    bodyHtml += generateHTML(section.content);
+    bodyHtml += '</div>';
+
+    if(section.graph){
+      bodyHtml += '<div class="col-sm-6 col-md-6 col-lg-6 body-right">';
+      bodyHtml += generateHTML(section.graph);
       bodyHtml += '</div>';
+    }
 
-      if(section.img){
-        bodyHtml += '<div class="col-sm-6 col-md-6 col-lg-6 body-right">';
-        bodyHtml += generateHTML(section.img);
-        bodyHtml += '</div>';
-      }
-
-      bodyHtml += '</div></div>';
-    })
+    bodyHtml += '</div></div>';
   })
 
   return {

@@ -14,15 +14,6 @@ export default function generateHTML(input){
         outString += '"';
       };
 
-      /* add any styles that exist for this element */
-      if(element.styleList.length){
-        outString += ' style="';
-        element.styleList.forEach((style) =>{
-          outString += style.style +':' +style.definition +';';
-        })
-        outString += '"';
-      };
-
       /* add any attributes that exist for this element */
       if(element.attrs) if(element.attrs.length){
         element.attrs.forEach((attr) =>{
