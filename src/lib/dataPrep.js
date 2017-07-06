@@ -48,6 +48,10 @@ export default function dataPrep(inputArray){
         
         if(child.content.includes('<div')){
           child.attrs = [['class', 'graph']];
+          if(child.content.includes('id=')){
+            var ids = child.content.split('id=')[1].split('"')[1];
+            child.attrs.push(['id', ids])
+          }
           child.tag = 'div';
           child.type = 'div_open';
           child.nesting = 1;
