@@ -40,8 +40,12 @@ export default function compileMarkdown(inputMarkdown){
       
   headerHtml += generateHTML(chapter.header);
   chapter.sections.forEach((section) =>{
+    var ids = '';
+    section.graph[0].attrs.forEach((attr) =>{
+      if(attr[0] === 'id') ids += attr[1];
+    })
     bodyHtml += `<div id="section-${section.section}"`
-    bodyHtml += 'class="section">'
+    bodyHtml += `class="section ${ids}">`
     // if(section.content.length > 0){
     //   if(section.img && section.content[0].tag === 'ol'){
     //     bodyHtml += ' section-list">';
