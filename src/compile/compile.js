@@ -52,13 +52,13 @@ export default function compileMarkdown(inputMarkdown){
     //   } else bodyHtml += '">';
     // } else bodyHtml += '">';
     bodyHtml += `<div class="row">
-          <div class="col-sm-6 col-md-6 col-lg-6 body-left">
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 body-left">
     `;
     bodyHtml += generateHTML(section.content);
     bodyHtml += '</div>';
 
     if(section.graph){
-      bodyHtml += '<div class="col-sm-6 col-md-6 col-lg-6 body-right">';
+      bodyHtml += '<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 body-right">';
       bodyHtml += generateHTML(section.graph);
       bodyHtml += '</div>';
     }
