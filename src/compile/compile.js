@@ -11,7 +11,7 @@ var md = new MarkdownIt();
 export default function compileMarkdown(inputMarkdown){
   // =============== Testing ===============
   // var parse2 = md.parse(inputMarkdown);
-  // dataPrep(parse2);
+  // var preppedData2 = dataPrep(parse2);
   // var nestedData2 = nestData(parse2);
 
   // =============== Markdown-It ===============

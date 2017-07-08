@@ -64,7 +64,10 @@ export default function dataPrep(inputArray){
           child.level = 0;
         }
         else {
-          child.attrs.push(['class', 'img-responsive'])
+          var source = child.attrs[0][1].split('/');
+          var id = source[source.length - 1].split('.')[0];
+
+          child.attrs.push(['class', 'img-responsive ' +id]);
           child.children = null;
           child.nesting = 1;
           child.level = 1;

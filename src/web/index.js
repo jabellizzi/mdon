@@ -29,7 +29,13 @@ body.appendChild(leftPane);
 
 leftInput.addEventListener('input', function(){
   var updatedMarkdown = leftInput.value;
-  outputMarkdown(updatedMarkdown);
+
+  var html = compileMarkdown(updatedMarkdown);
+
+  rightInput.innerText = html.header + html.body;
+  rightPane.appendChild(rightInput);
+
+  body.appendChild(rightPane);
 })
 
 var html = compileMarkdown(chapter);
