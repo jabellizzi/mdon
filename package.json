@@ -8,7 +8,7 @@
     "watch-node": "webpack --config webpack.mdon-config.js --watch",
     "build-web": "webpack --config webpack.web-config.js",
     "watch-web": "webpack --config webpack.web-config.js --watch",
-    "serve": "webpack-dev-server --config webpack.web-config.js --open",
+    "serve": "webpack-dev-server --config webpack.web-config.js --port 8030 --open",
     "start": "npm run watch-web & npm run serve"
   },
   "repository": {
